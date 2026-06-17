@@ -56,7 +56,6 @@
         <li><a href="#inclusion">Inclusion</a></li>
         <li><a href="#voices">Community Voices</a></li>
         <li><a href="#volunteer">Volunteer</a></li>
-        <li><a href="#changelog">Updates</a></li>
         <li><a href="#contact">Contact</a></li>
         <li class="nav__cta"><a class="btn btn--gold" href="donate.html">Donate</a></li>
       </ul>
@@ -259,22 +258,6 @@
       </div>
     </section>
 
-    <section class="section section--tint" id="changelog">
-      <div class="wrap">
-        <div class="section-head reveal">
-          <p class="eyebrow">Website Updates</p>
-          <h2>Recent campaign website changes</h2>
-          <p style="color:var(--muted)">This section automatically displays the latest public updates from the campaign website repository.</p>
-        </div>
-
-        <div class="notice reveal">
-          <strong>Latest updates</strong>
-          <ul id="commit-list" style="margin:.75rem 0 0; padding-left:1.25rem;">
-            <li>Loading latest website updates...</li>
-          </ul>
-        </div>
-      </div>
-    </section>
 
     <section class="section section--tint" id="contact">
       <div class="wrap split">
@@ -325,7 +308,6 @@
             <li><a href="#priorities">Priorities</a></li>
             <li><a href="#inclusion">Inclusion</a></li>
             <li><a href="#volunteer">Volunteer</a></li>
-            <li><a href="#changelog">Updates</a></li>
             <li><a href="donate.html">Donate</a></li>
           </ul>
         </div>
@@ -353,46 +335,5 @@
 
   <script src="js/main.js"></script>
 
-  <script>
-    (function () {
-      "use strict";
-
-      var list = document.getElementById("commit-list");
-      if (!list) return;
-
-      var repoApi = "https://api.github.com/repos/Amasud5550/asad-campaign/commits?per_page=5";
-
-      fetch(repoApi)
-        .then(function (response) {
-          if (!response.ok) throw new Error("Could not load changelog");
-          return response.json();
-        })
-        .then(function (commits) {
-          list.innerHTML = "";
-
-          commits.forEach(function (item) {
-            var li = document.createElement("li");
-            var date = new Date(item.commit.author.date).toLocaleDateString("en-CA", {
-              year: "numeric",
-              month: "short",
-              day: "numeric"
-            });
-
-            var link = document.createElement("a");
-            link.href = item.html_url;
-            link.target = "_blank";
-            link.rel = "noopener";
-            link.textContent = item.commit.message;
-
-            li.appendChild(document.createTextNode(date + " — "));
-            li.appendChild(link);
-            list.appendChild(li);
-          });
-        })
-        .catch(function () {
-          list.innerHTML = "<li>Website update history is available on the campaign GitHub repository.</li>";
-        });
-    })();
-  </script>
 </body>
 </html>
