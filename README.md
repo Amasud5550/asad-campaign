@@ -43,7 +43,7 @@ Search the files for square brackets and replace them:
 3. Build settings: **Framework preset: None**, **Build command: (leave blank)**,
    **Build output directory: `/`** (the repo root, since this is plain HTML).
 4. Deploy. Cloudflare gives you a free `*.pages.dev` URL with HTTPS.
-5. Add your custom domain (e.g. `voteasad.ca`) under **Custom domains**.
+5. Add your custom domain (e.g. `asadmahmood.ca`) under.
 
 The `functions/` folder is picked up automatically — `/api/create-checkout-session`
 becomes a live endpoint. No separate server needed.
@@ -57,7 +57,7 @@ becomes a live endpoint. No separate server needed.
 2. Get your **Secret key** (starts with `sk_live_…`; use `sk_test_…` while testing).
 3. In Cloudflare → your Pages project → **Settings → Environment variables**, add:
    - `STRIPE_SECRET_KEY` = your secret key
-   - `SITE_URL` = `https://voteasad.ca` (your final domain)
+   - `SITE_URL` = `https://asadmahmood.ca` (your final domain)
 4. Redeploy. Test with Stripe test mode first (card `4242 4242 4242 4242`).
 
 **Why a function instead of pure front-end?** Stripe payments require a secret key that
