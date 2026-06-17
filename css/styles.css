@@ -368,12 +368,3 @@ a  { color: var(--teal-dark); }
   display: block;
 }
 
-.brand__mark {
-  width: 64px;
-  height: 64px;
-  overflow: hidden;
-  border-radius: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
