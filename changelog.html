@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Website Changelog — Asad Mahmood Campaign</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <main class="section" style="min-height:100vh;">
+    <div class="wrap" style="max-width:900px;">
+      <p class="eyebrow">Private Website Log</p>
+      <h1>Website Changelog</h1>
+      <p style="color:var(--muted);max-width:60ch;">
+        Internal log of recent updates to the Asad Mahmood campaign website.
+        This page is not linked publicly and is marked noindex.
+      </p>
+
+      <div class="notice" style="margin:1.5rem 0;">
+        <strong>Latest GitHub updates</strong>
+        <ul id="commit-list" style="margin:.75rem 0 0; padding-left:1.25rem;">
+          <li>Loading latest updates...</li>
+        </ul>
+      </div>
+
+      <p>
+        <a class="btn btn--primary" href="admin.html">Back to Admin</a>
+        <a class="btn btn--ghost" href="index.html">View Public Site</a>
+      </p>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var list = document.getElementById("commit-list");
+      if (!list) return;
+
+      var repoApi = "https://api.github.com/repos/Amasud5550/asad-campaign/commits?per_page=10";
+
+      fetch(repoApi)
+        .then(function (response) {
+          if (!response.ok) throw new Error("Could not load changelog");
+          return response.json();
+        })
+        .then(function (commits) {
+          list.innerHTML = "";
+
+          commits.forEach(function (item) {
+            var li = document.createElement("li");
+
+            var date = new Date(item.commit.author.date).toLocaleDateString("en-CA", {
+              year: "numeric",
+              month: "short",
+              day: "numeric"
+            });
+
+            var link = document.createElement("a");
+            link.href = item.html_url;
+            link.target = "_blank";
+            link.rel = "noopener";
+            link.textContent = item.commit.message;
+
+            li.appendChild(document.createTextNode(date + " — "));
+            li.appendChild(link);
+            list.appendChild(li);
+          });
+        })
+        .catch(function () {
+          list.innerHTML = "<li>Unable to load GitHub update history right now.</li>";
+        });
+    })();
+  </script>
+</body>
+</html>
