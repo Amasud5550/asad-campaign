@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changelog Login</title>
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<main class="section" style="min-height:100vh;display:flex;align-items:center;justify-content:center;">
+  <div class="wrap" style="max-width:450px;text-align:center;">
+    <h1>Website Changelog</h1>
+    <p>Authorized campaign staff only.</p>
+
+    <input
+      type="password"
+      id="password"
+      placeholder="2004"
+      style="width:100%;padding:12px;margin:15px 0;"
+    >
+
+    <button class="btn btn--primary" onclick="login()">
+      Login
+    </button>
+
+    <p id="error" style="color:red;margin-top:15px;"></p>
+  </div>
+</main>
+
+<script>
+function login() {
+  const password = document.getElementById("password").value;
+
+  if (password === 2004) {
+    window.location.href = "changelog.html";
+  } else {
+    document.getElementById("error").textContent =
+      "Incorrect password.";
+  }
+}
+</script>
+
+</body>
+</html>
