@@ -177,9 +177,28 @@ export async function onRequestPost(context) {
   return json({ url: session.url }, 200);
 }
 
-/* Reject anything that isn't a POST */
+/* GET = safe config diagnostic (booleans only, never secret values).
+   Anything else that isn't POST is rejected. */
 export async function onRequest(context) {
   if (context.request.method === "POST") return onRequestPost(context);
+  if (context.request.method === "GET") {
+    const env = context.env || {};
+    const key = env.STRIPE_SECRET_KEY || "";
+    return json(
+      {
+        diagnostic: {
+          STRIPE_SECRET_KEY_present: Boolean(key),
+          STRIPE_SECRET_KEY_looks_valid: /^sk_(test|live)_/.test(key),
+          SITE_URL_present: Boolean(env.SITE_URL),
+          SITE_URL_value: env.SITE_URL || null,
+          env_var_names_visible: Object.keys(env).filter(
+            (k) => typeof env[k] === "string"
+          ),
+        },
+      },
+      200
+    );
+  }
   return json({ error: "Method not allowed." }, 405);
 }
 
