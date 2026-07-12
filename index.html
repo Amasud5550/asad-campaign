@@ -51,6 +51,7 @@
 </head>
 
 <body>
+  <div class="progress-bar" aria-hidden="true"></div>
   <a class="skip-link" href="#main">Skip to main content</a>
 
   <div class="election-banner">
@@ -96,11 +97,13 @@
 
   <main id="main">
     <section class="hero" aria-label="Introduction">
+      <div class="hero__glow" aria-hidden="true"></div>
+      <div class="flight-locks" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
       <div class="wrap hero__inner">
         <div class="hero__grid">
           <div>
             <p class="eyebrow reveal in" style="color:#F4E3B2">Candidate · Thorold City Council · 2026</p>
-            <h1>Asad Mahmood for Thorold City Council</h1>
+            <h1>Asad Mahmood for <span class="accent">Thorold</span> City Council</h1>
             <p class="hero__sub reveal in">Listening. Including. Delivering.</p>
             <p class="hero__lede reveal in">Whether your family has called Thorold home for fifty years or fifty days, your voice belongs at the table.</p>
 
@@ -176,17 +179,43 @@
         </div>
 
         <div class="cards">
-          <article class="card reveal"><span class="card__num">01</span><h3>Keeping Thorold affordable</h3><p>Responsible spending, real transparency, and value for every tax dollar.</p></article>
-          <article class="card reveal" data-d="1"><span class="card__num">02</span><h3>Roads &amp; infrastructure</h3><p>Road and sidewalk repair, safer crossings, and traffic calming.</p></article>
-          <article class="card reveal" data-d="2"><span class="card__num">03</span><h3>Responsible growth</h3><p>Welcome new homes and neighbours while protecting Thorold’s character.</p></article>
-          <article class="card reveal"><span class="card__num">04</span><h3>Safe, welcoming neighbourhoods</h3><p>Clean parks, family-friendly spaces, and community safety.</p></article>
-          <article class="card reveal" data-d="1"><span class="card__num">05</span><h3>Listening to residents</h3><p>Town halls, online surveys, and open office hours.</p></article>
-          <article class="card reveal" data-d="2"><span class="card__num">06</span><h3>Supporting local business</h3><p>Backing the shops, trades, and small businesses that keep Thorold moving.</p></article>
+          <article class="card reveal">
+            <span class="card__num">01</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span>
+            <h3>Keeping Thorold affordable</h3><p>Responsible spending, real transparency, and value for every tax dollar.</p>
+          </article>
+          <article class="card reveal" data-d="1">
+            <span class="card__num">02</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19l4-14"/><path d="M16 5l4 14"/><line x1="12" y1="8" x2="12" y2="8.01"/><line x1="12" y1="13" x2="12" y2="13.01"/><line x1="12" y1="18" x2="12" y2="18.01"/></svg></span>
+            <h3>Roads &amp; infrastructure</h3><p>Road and sidewalk repair, safer crossings, and traffic calming.</p>
+          </article>
+          <article class="card reveal" data-d="2">
+            <span class="card__num">03</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></span>
+            <h3>Responsible growth</h3><p>Welcome new homes and neighbours while protecting Thorold’s character.</p>
+          </article>
+          <article class="card reveal">
+            <span class="card__num">04</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></span>
+            <h3>Safe, welcoming neighbourhoods</h3><p>Clean parks, family-friendly spaces, and community safety.</p>
+          </article>
+          <article class="card reveal" data-d="1">
+            <span class="card__num">05</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></span>
+            <h3>Listening to residents</h3><p>Town halls, online surveys, and open office hours.</p>
+          </article>
+          <article class="card reveal" data-d="2">
+            <span class="card__num">06</span>
+            <span class="card__icon" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1-5h16l1 5"/><path d="M4 9v11a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1V9"/><path d="M9 21v-7h6v7"/></svg></span>
+            <h3>Supporting local business</h3><p>Backing the shops, trades, and small businesses that keep Thorold moving.</p>
+          </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="inclusion">
+    <div class="locks-divide" aria-hidden="true"><span></span><span></span><span></span></div>
+
+    <section class="section" id="inclusion" style="padding-top:0">
       <div class="wrap">
         <div class="band reveal">
           <p class="eyebrow" style="color:#D4A017">Inclusion &amp; representation</p>

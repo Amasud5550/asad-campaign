@@ -418,3 +418,126 @@ img { max-width: 100%; }
   .media-hero__grid, .media-grid { grid-template-columns: 1fr; }
   .media-card--featured { grid-column: span 1; }
 }
+
+/* ============================================================
+   V2 ENHANCEMENTS — "next level" pass
+   ============================================================ */
+
+/* Brand selection colour */
+::selection { background: var(--gold-pale); color: var(--teal-deep); }
+
+/* Gold reading-progress bar */
+.progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--gold-bright), #E9C15A);
+  z-index: 300; pointer-events: none;
+  box-shadow: 0 0 10px rgba(212,160,23,.55);
+  transition: width .08s linear;
+}
+
+/* Hero: film grain + slow ambient glow */
+.hero::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; opacity: .35; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+}
+@keyframes heroGlow {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: .5; }
+  50%      { transform: translate(-3%, 2%) scale(1.06); opacity: .75; }
+}
+.hero__glow {
+  position: absolute; z-index: -1; width: 46vw; height: 46vw; min-width: 420px; min-height: 420px;
+  right: -12%; top: -18%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(212,160,23,.16) 0%, rgba(20,133,124,.12) 40%, transparent 70%);
+  filter: blur(40px); animation: heroGlow 14s ease-in-out infinite; pointer-events: none;
+}
+
+/* Signature: Welland Canal flight locks — descending stepped chambers
+   that slowly "fill" with water, echoing Locks 4–6 through Thorold */
+.flight-locks {
+  position: absolute; left: 2vw; bottom: 14%; z-index: 0;
+  display: grid; gap: 10px; pointer-events: none; opacity: .5;
+}
+.flight-locks span {
+  height: 12px; border-radius: 4px;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  position: relative; overflow: hidden;
+}
+.flight-locks span:nth-child(1) { width: 180px; }
+.flight-locks span:nth-child(2) { width: 140px; margin-left: 24px; }
+.flight-locks span:nth-child(3) { width: 100px; margin-left: 48px; }
+.flight-locks span:nth-child(4) { width: 64px;  margin-left: 72px; }
+.flight-locks span::after {
+  content: ""; position: absolute; inset: 0; transform: translateX(-100%);
+  background: linear-gradient(90deg, transparent, rgba(212,160,23,.55), rgba(255,255,255,.25), transparent);
+  animation: lockFill 7s ease-in-out infinite;
+}
+.flight-locks span:nth-child(2)::after { animation-delay: .9s; }
+.flight-locks span:nth-child(3)::after { animation-delay: 1.8s; }
+.flight-locks span:nth-child(4)::after { animation-delay: 2.7s; }
+@keyframes lockFill {
+  0%       { transform: translateX(-100%); }
+  45%, 60% { transform: translateX(0); }
+  100%     { transform: translateX(100%); }
+}
+@media (max-width: 980px) { .flight-locks { display: none; } }
+@media (prefers-reduced-motion: reduce) {
+  .hero__glow, .flight-locks span::after { animation: none; }
+}
+
+/* Hero photo: slow parallax float on the frame */
+@keyframes frameFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+.hero__frame { animation: frameFloat 9s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .hero__frame { animation: none; } }
+
+/* Gold button: light sweep on hover */
+.btn--gold { position: relative; overflow: hidden; }
+.btn--gold::after {
+  content: ""; position: absolute; top: 0; bottom: 0; width: 40%;
+  left: -60%; transform: skewX(-20deg);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,.45), transparent);
+  transition: left .45s ease;
+}
+.btn--gold:hover::after { left: 130%; }
+
+/* Priorities: icon chips return, richer than numerals alone */
+.card__icon {
+  width: 50px; height: 50px; border-radius: 13px; display: grid; place-items: center; margin-bottom: 1rem;
+  background: linear-gradient(160deg, var(--teal-tint), #fff); color: var(--teal-dark);
+  border: 1px solid var(--teal-tint-2); position: relative; z-index: 1;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+.card:hover .card__icon { background: linear-gradient(160deg, var(--teal), var(--teal-dark)); color: #fff; transform: scale(1.06); }
+
+/* Stepped flight-lock divider (light sections) */
+.locks-divide { display: grid; gap: 7px; width: min(280px, 60%); margin: 0 auto; padding: clamp(1.2rem, 3vw, 2.2rem) 0; }
+.locks-divide span { height: 6px; border-radius: 3px; background: var(--teal-tint-2); justify-self: center; }
+.locks-divide span:nth-child(1) { width: 100%; }
+.locks-divide span:nth-child(2) { width: 68%; background: var(--gold-pale); }
+.locks-divide span:nth-child(3) { width: 38%; background: var(--teal-tint); }
+
+/* Inclusion band: faint lock steps in the corner glow */
+.band::before {
+  content: ""; position: absolute; left: -30px; top: -30px; width: 200px; height: 200px; opacity: .1;
+  background: repeating-linear-gradient(90deg, var(--teal-tint) 0 10px, transparent 10px 26px);
+  border-radius: 20px; pointer-events: none;
+}
+
+/* Media hero: gold keel under the headline */
+.media-hero h1 { position: relative; display: inline-block; }
+.media-hero h1::after {
+  content: ""; position: absolute; left: 2px; bottom: .05em; height: .18em; width: 38%;
+  background: linear-gradient(90deg, var(--gold-bright), transparent); border-radius: 4px; z-index: -1; opacity: .55;
+}
+
+/* Signals: number-free, but give each a gold tick on hover */
+.signals div { transition: transform .2s ease, box-shadow .2s ease; }
+.signals div:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); border-top-color: var(--gold-bright); }
+
+/* Forms: floating card lift on focus-within */
+.form-card:focus-within { box-shadow: var(--shadow-lg); border-color: var(--teal-tint-2); }
+
+/* Footer links: gold arrow slide */
+.footer__grid ul a { position: relative; transition: padding-left .18s ease; }
+.footer__grid ul a:hover { padding-left: .9rem; text-decoration: none; }
+.footer__grid ul a:hover::before { content: "→"; position: absolute; left: 0; color: var(--gold-bright); }

@@ -54,6 +54,18 @@
     });
   }
 
+  /* Gold reading-progress bar */
+  var bar = document.querySelector(".progress-bar");
+  if (bar) {
+    var onProgress = function () {
+      var max = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = max > 0 ? (window.scrollY / max) * 100 + "%" : "0%";
+    };
+    onProgress();
+    window.addEventListener("scroll", onProgress, { passive: true });
+    window.addEventListener("resize", onProgress, { passive: true });
+  }
+
   /* Header shadow on scroll (works on every page, with or without id) */
   var header = document.getElementById("header") || document.querySelector(".site-header");
 
