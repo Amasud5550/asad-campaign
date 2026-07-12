@@ -4,20 +4,43 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Accessibility — Asad Mahmood for Thorold City Council</title>
+  <meta name="description" content="The accessibility commitment of the Campaign of Asad Mahmood, built to WCAG 2.1 AA and Ontario's AODA standards." />
+  <link rel="canonical" href="https://www.asadmahmood.ca/accessibility.html" />
+  <link rel="icon" href="logo small.png" />
+  <meta name="theme-color" content="#0B5853" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,700;12..96,800&family=Public+Sans:wght@400;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
-  <link rel="icon" href="logo small.png">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to main content</a>
-  <header class="site-header">
+
+  <header class="site-header" id="header">
     <div class="wrap nav">
-      <a class="brand" href="index.html"><span class="brand__mark" aria-hidden="true">
-        <svg width="22" height="22" viewBox="0 0 22 22"><rect x="2" y="13" width="18" height="3" rx="1" fill="#fff"/><rect x="5" y="9" width="15" height="3" rx="1" fill="#D4A017"/><rect x="8" y="5" width="12" height="3" rx="1" fill="#fff"/></svg>
-      </span><span class="brand__name">Asad Mahmood<small>For Thorold City Council</small></span></a>
-      <ul class="nav__links" id="primary-nav"><li class="nav__cta"><a class="btn btn--gold" href="donate.html">Donate</a></li></ul>
+      <a class="brand" href="index.html" aria-label="Asad Mahmood for Thorold City Council — home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 22 22" fill="none">
+            <rect x="2" y="13" width="18" height="3" rx="1.5" fill="#fff"/>
+            <rect x="5" y="9" width="15" height="3" rx="1.5" fill="#D4A017"/>
+            <rect x="8" y="5" width="12" height="3" rx="1.5" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="brand__name">Asad Mahmood<small>For Thorold City Council</small></span>
+      </a>
+
+      <button class="nav__toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+        <span></span>
+      </button>
+
+      <ul class="nav__links" id="primary-nav">
+        <li><a href="index.html#meet">Meet Asad</a></li>
+        <li><a href="index.html#priorities">Priorities</a></li>
+        <li><a href="index.html#volunteer">Volunteer</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li class="nav__cta"><a class="btn btn--gold" href="donate.html">Donate</a></li>
+      </ul>
     </div>
   </header>
 
@@ -25,31 +48,32 @@
     <div class="wrap" style="max-width:720px">
       <p class="eyebrow">Accessibility</p>
       <h1 style="font-size:var(--step-3)">Accessibility statement</h1>
-      <p>Everyone deserves a seat at the table — including online. This site is built to meet <strong>WCAG 2.1 Level AA</strong>, consistent with the Accessibility for Ontarians with Disabilities Act (AODA).</p>
+      <p style="color:var(--muted)">A campaign about including everyone starts with a website everyone can use.</p>
 
-      <h3>What we’ve done</h3>
-      <ul style="line-height:1.7">
-        <li>Colour contrast meeting AA for text and interface elements.</li>
-        <li>Full keyboard navigation with a visible focus indicator and a “skip to content” link.</li>
-        <li>Semantic headings and landmarks for screen-reader users.</li>
-        <li>Labels on every form field, with clear error messages.</li>
-        <li>Reduced-motion support for visitors who prefer less animation.</li>
-        <li>Text that reflows and remains readable on phones and when zoomed.</li>
-      </ul>
+      <h3>Our commitment</h3>
+      <p>The Campaign of Asad Mahmood is committed to providing a website that is accessible to the widest possible audience, regardless of technology or ability. We aim to meet the <strong>Web Content Accessibility Guidelines (WCAG) 2.1, Level AA</strong>, consistent with the goals of Ontario’s <em>Accessibility for Ontarians with Disabilities Act</em> (AODA).</p>
 
-      <h3>Need this in another format?</h3>
-      <p>If any part of this site is hard to use, or you’d like campaign materials in large print, by phone, or in another language, please contact us — we’ll make it right.</p>
-      <p><strong>Email:</strong> <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a><br>
-         <strong>Phone:</strong> <a href="tel:(905) - 347 2633">[campaign phone]</a></p>
+      <h3>What we've built in</h3>
+      <p>This site supports keyboard navigation with visible focus indicators, includes a skip-to-content link on every page, uses labelled form fields, maintains contrast-checked colours, respects reduced-motion preferences, and is responsive down to mobile screen sizes.</p>
+
+      <h3>Alternative formats</h3>
+      <p>If you need campaign information in an alternative format — large print, plain text, or over the phone — contact us and we will provide it.</p>
+
+      <h3>Feedback</h3>
+      <p>If you encounter an accessibility barrier anywhere on this site, please tell us. Email <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a> or call <a href="tel:+19053472633">(905) 347-2633</a>, and we will work to fix it promptly.</p>
 
       <p><a class="btn btn--ghost" href="index.html">← Back to home</a></p>
     </div>
   </main>
 
-  <footer class="site-footer"><div class="wrap"><p class="footer__auth">
-    <strong>Authorized by the Campaign of Asad Mahmood for Thorold City Council.</strong><br>
-    Paid for by the Campaign of Asad Mahmood. Contact: <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a>.
-  </p></div></footer>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer__auth">
+        <strong>Authorized by the Campaign of Asad Mahmood for Thorold City Council.</strong><br>
+        Paid for by the Campaign of Asad Mahmood. Contact: <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a>.
+      </p>
+    </div>
+  </footer>
   <script src="js/main.js"></script>
 </body>
 </html>
