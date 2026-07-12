@@ -1,4 +1,6 @@
-/* Donation flow — validates against Ontario limits, then hands off to Stripe Checkout. */
+/* Donation flow — validates against Ontario limits, then hands off to Stripe Checkout.
+   These checks are user experience only; the Cloudflare Function at
+   /api/create-checkout-session is the authoritative enforcement layer. */
 (function () {
   "use strict";
 
@@ -37,6 +39,11 @@
     window.scrollTo({ top: status.getBoundingClientRect().top + window.scrollY - 120, behavior: "smooth" });
   }
 
+  function checked(id) {
+    var el = document.getElementById(id);
+    return !!(el && el.checked);
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     status.className = "form__status";
@@ -57,7 +64,13 @@
       address: document.getElementById("address").value.trim(),
       city: document.getElementById("city").value.trim(),
       postal: document.getElementById("postal").value.trim(),
-      province: "ON"
+      province: "ON",
+      attestations: {
+        resident: checked("att-resident"),
+        ownFunds: checked("att-own"),
+        withinLimits: checked("att-limit"),
+        noTaxReceipt: checked("att-tax")
+      }
     };
 
     submit.disabled = true;
@@ -68,19 +81,26 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload)
     })
-      .then(function (r) { return r.json().then(function (d) { return { ok: r.ok, d: d }; }); })
-      .then(function (res) {
-        if (!res.ok || !res.d.url) throw new Error(res.d.error || "Could not start checkout");
-        window.location.href = res.d.url; // redirect to Stripe Checkout
+      .then(function (r) {
+        return r.json()
+          .catch(function () { return {}; })
+          .then(function (d) { return { ok: r.ok, d: d }; });
       })
-      .catch(function (err) {
+      .then(function (res) {
+        if (res.ok && res.d.url) {
+          window.location.href = res.d.url; // redirect to Stripe Checkout
+          return;
+        }
+        // Server responded but refused (validation, limits, paused, etc.)
         submit.disabled = false;
         submit.textContent = "Continue to secure payment";
-        fail(
-          "We couldn’t reach the payment service. " +
-          (err && err.message ? err.message + ". " : "") +
-          "Please try again, or email the campaign and we’ll help."
-        );
+        fail(res.d.error || "The payment could not be started. Please try again, or email the campaign and we\u2019ll help.");
+      })
+      .catch(function () {
+        // True network failure — server never responded
+        submit.disabled = false;
+        submit.textContent = "Continue to secure payment";
+        fail("We couldn\u2019t reach the payment service. Please check your connection and try again, or email the campaign and we\u2019ll help.");
       });
   });
 })();

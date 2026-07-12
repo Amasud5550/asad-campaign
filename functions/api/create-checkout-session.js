@@ -3,35 +3,50 @@
  * Cloudflare Pages Function — creates a Stripe Checkout Session for a
  * one-time campaign contribution.
  *
- * SECURITY MODEL
- * All rules are enforced HERE, server-side. The checks in js/donate.js are
- * user experience only — anyone can bypass browser code with dev tools or
- * curl, so nothing in the browser is trusted:
+ * SECURITY & COMPLIANCE MODEL (Municipal Elections Act, 1996 — Ontario)
+ * All rules are enforced HERE, server-side. Browser checks are UX only.
  *
- *   1. Amount must be an integer, $5–$1,200 CAD (MEA s.88.9 per-candidate cap).
- *   2. Province must be Ontario.
- *   3. All contributor fields required (MEA record-keeping: name + address).
- *   4. CUMULATIVE cap: previous successful contributions from the same email
- *      are summed via the Stripe Search API. If this donation would push the
- *      donor past $1,200 total, it is refused with the remaining room shown.
+ *   1. Amount: integer, $5–$1,200 CAD (s.88.9 per-candidate cap).
+ *   2. Province must be Ontario; postal code must be a valid Canadian
+ *      postal code with an Ontario prefix (K, L, M, N, P).
+ *   3. All contributor fields required (record-keeping: name + address).
+ *   4. All four attestations must be checked — verified server-side, and
+ *      the donor's actual answers are stored in Stripe metadata.
+ *   5. CUMULATIVE cap: previous successful contributions from the same
+ *      email are summed via the Stripe Search API; the donation is refused
+ *      if it would exceed $1,200 total. (Refunded/returned contributions
+ *      still appear in this sum — if the campaign refunds an ineligible
+ *      contribution, review the donor's true total manually before
+ *      accepting more from them.)
+ *   6. Kill switch: set DONATIONS_ENABLED=false in Cloudflare to stop
+ *      accepting contributions instantly (e.g. outside the campaign
+ *      period) without touching code.
  *
- * ENV VARS (Cloudflare Pages → Settings → Environment variables):
- *   STRIPE_SECRET_KEY  sk_live_... (sk_test_... while testing)
- *   SITE_URL           https://www.asadmahmood.ca (no trailing slash)
+ * ENV VARS (Cloudflare Pages → Settings → Variables and secrets):
+ *   STRIPE_SECRET_KEY   sk_live_... (sk_test_... while testing)  [Secret]
+ *   SITE_URL            https://www.asadmahmood.ca (no trailing slash)
+ *   DONATIONS_ENABLED   optional; set to "false" to pause donations
  *
- * NOTE on the cumulative check: Stripe's Search API indexes new payments
- * within ~1 minute. A determined donor firing two donations in the same
- * minute could momentarily exceed the cap — the financial-statement review
- * still catches it, and the campaign must refund the excess (MEA s.88.23).
- * For a hard real-time guarantee, add a KV/D1 ledger keyed by email.
+ * NOTE: Stripe's Search API indexes new payments within ~1 minute, so two
+ * donations fired in the same minute could momentarily exceed the cap.
+ * The campaign's record review remains the legal backstop (s.88.23 —
+ * ineligible contributions must be returned or turned over to the clerk).
  */
 
 const MAX_TOTAL = 1200; // dollars, per contributor per candidate
 const MIN = 5;
 const STRIPE = "https://api.stripe.com/v1";
+const ON_POSTAL_PREFIXES = ["K", "L", "M", "N", "P"]; // Ontario FSA first letters
 
 export async function onRequestPost(context) {
   const { request, env } = context;
+
+  if (String(env.DONATIONS_ENABLED).toLowerCase() === "false") {
+    return json(
+      { error: "The campaign is not accepting contributions at this time. Thank you for your support — please check back soon." },
+      503
+    );
+  }
 
   if (!env.STRIPE_SECRET_KEY || !env.SITE_URL) {
     return json({ error: "Payment service is not configured yet." }, 503);
@@ -65,7 +80,7 @@ export async function onRequestPost(context) {
     email:     clean(body.email, 120).toLowerCase(),
     address:   clean(body.address, 120),
     city:      clean(body.city, 60),
-    postal:    clean(body.postal, 12).toUpperCase(),
+    postal:    clean(body.postal, 12).toUpperCase().replace(/\s+/g, " "),
     province:  clean(body.province, 8).toUpperCase(),
   };
 
@@ -84,6 +99,24 @@ export async function onRequestPost(context) {
   if (!/^[A-Z]\d[A-Z]\s?\d[A-Z]\d$/.test(donor.postal)) {
     return json({ error: "Please provide a valid Canadian postal code." }, 400);
   }
+  if (!ON_POSTAL_PREFIXES.includes(donor.postal[0])) {
+    return json(
+      { error: "That postal code is outside Ontario. Only individuals who normally live in Ontario may contribute." },
+      400
+    );
+  }
+
+  // ---- Attestations: must be affirmed, verified server-side --------------
+  const att = body.attestations || {};
+  const required = ["resident", "ownFunds", "withinLimits", "noTaxReceipt"];
+  for (const k of required) {
+    if (att[k] !== true) {
+      return json(
+        { error: "All confirmation checkboxes are required before contributing. Please review and confirm each statement." },
+        400
+      );
+    }
+  }
 
   const auth = {
     Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
@@ -91,7 +124,6 @@ export async function onRequestPost(context) {
   };
 
   // ---- Cumulative $1,200 enforcement -------------------------------------
-  // Sum all previously *succeeded* payments tagged with this donor's email.
   try {
     const query = `metadata['donor_email']:'${donor.email.replace(/'/g, "")}' AND status:'succeeded'`;
     const searchRes = await fetch(
@@ -135,6 +167,7 @@ export async function onRequestPost(context) {
   params.set("cancel_url", `${env.SITE_URL}/donate.html`);
   params.set("customer_email", donor.email);
   params.set("submit_type", "donate");
+  params.set("locale", "en");
   params.set("line_items[0][quantity]", "1");
   params.set("line_items[0][price_data][currency]", "cad");
   params.set("line_items[0][price_data][unit_amount]", String(amount * 100));
@@ -143,17 +176,23 @@ export async function onRequestPost(context) {
     "Contribution — Campaign of Asad Mahmood for Thorold City Council"
   );
 
-  // MEA record-keeping: contributor name + address stored on both the
-  // session and the payment intent (the payment-intent copy also powers
-  // the cumulative-limit search above).
+  // Always email the donor a Stripe receipt (the campaign's own official
+  // contribution receipt under the MEA is issued separately from records).
+  params.set("payment_intent_data[receipt_email]", donor.email);
+  // Card-statement label so donors recognize the charge (fewer disputes).
+  params.set("payment_intent_data[statement_descriptor_suffix]", "THOROLD 2026");
+
+  // MEA record-keeping: contributor name + address + attestations stored on
+  // both the session and the payment intent (the payment-intent copy also
+  // powers the cumulative-limit search above).
   const meta = {
     donor_email: donor.email,
     donor_name: `${donor.firstName} ${donor.lastName}`,
     donor_address: `${donor.address}, ${donor.city}, ON ${donor.postal}`,
-    attested_on_resident: "yes",
-    attested_own_funds: "yes",
-    attested_within_limits: "yes",
-    attested_no_tax_receipt: "yes",
+    attested_on_resident: String(att.resident === true),
+    attested_own_funds: String(att.ownFunds === true),
+    attested_within_limits: String(att.withinLimits === true),
+    attested_no_tax_receipt: String(att.noTaxReceipt === true),
   };
   for (const [k, v] of Object.entries(meta)) {
     params.set(`metadata[${k}]`, v);
@@ -177,28 +216,10 @@ export async function onRequestPost(context) {
   return json({ url: session.url }, 200);
 }
 
-/* GET = safe config diagnostic (booleans only, never secret values).
-   Anything else that isn't POST is rejected. */
+/* Reject anything that isn't a POST.
+   (The temporary GET diagnostic has been removed for launch.) */
 export async function onRequest(context) {
   if (context.request.method === "POST") return onRequestPost(context);
-  if (context.request.method === "GET") {
-    const env = context.env || {};
-    const key = env.STRIPE_SECRET_KEY || "";
-    return json(
-      {
-        diagnostic: {
-          STRIPE_SECRET_KEY_present: Boolean(key),
-          STRIPE_SECRET_KEY_looks_valid: /^sk_(test|live)_/.test(key),
-          SITE_URL_present: Boolean(env.SITE_URL),
-          SITE_URL_value: env.SITE_URL || null,
-          env_var_names_visible: Object.keys(env).filter(
-            (k) => typeof env[k] === "string"
-          ),
-        },
-      },
-      200
-    );
-  }
   return json({ error: "Method not allowed." }, 405);
 }
 
