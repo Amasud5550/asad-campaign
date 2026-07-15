@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Request a Lawn Sign — Asad Mahmood for Thorold City Council</title>
+  <meta name="description" content="Show your support — request a free Asad Mahmood lawn sign and we'll deliver it to your Thorold home." />
+  <meta name="author" content="Campaign of Asad Mahmood" />
+
+  <link rel="canonical" href="https://www.asadmahmood.ca/signs.html" />
+  <link rel="icon" href="logo small.png" />
+  <meta name="theme-color" content="#0B5853" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header" id="header">
+    <div class="wrap nav">
+      <a class="brand" href="index.html" aria-label="Asad Mahmood for Thorold City Council — home">
+        <span class="brand__mark" aria-hidden="true">
+          <svg width="23" height="23" viewBox="0 0 22 22" fill="none">
+            <rect x="2" y="13" width="18" height="3" rx="1.5" fill="#fff"/>
+            <rect x="5" y="9" width="15" height="3" rx="1.5" fill="#D4A017"/>
+            <rect x="8" y="5" width="12" height="3" rx="1.5" fill="#fff"/>
+          </svg>
+        </span>
+        <span class="brand__name">Asad Mahmood<small>For Thorold City Council</small></span>
+      </a>
+
+      <button class="nav__toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu"><span></span></button>
+
+      <ul class="nav__links" id="primary-nav">
+        <li><a href="index.html#meet">Meet Asad</a></li>
+        <li><a href="index.html#priorities">Priorities</a></li>
+        <li><a href="election.html">Voting Info</a></li>
+        <li><a href="index.html#volunteer">Volunteer</a></li>
+        <li><a href="media.html">Media</a></li>
+        <li class="nav__cta"><a class="btn btn--gold" href="donate.html">Donate</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="main" class="section section--tint">
+    <div class="wrap split">
+      <div class="reveal in">
+        <p class="eyebrow">Lawn Signs</p>
+        <h1 style="font-size:var(--step-3)">Show Thorold you're with Asad</h1>
+        <p>A lawn sign is the oldest campaign tool there is — because it works. Every sign tells your neighbours that someone they know and trust is supporting Asad.</p>
+        <p>Request one below and a campaign volunteer will <strong>deliver and set it up for free</strong>, anywhere in Thorold.</p>
+        <p style="font-size:.85rem;color:var(--muted)">Signs are placed in accordance with the City of Thorold's sign by-law, so delivery may begin closer to the election period. We'll only use your address to deliver your sign — see our <a href="privacy.html">privacy statement</a>.</p>
+      </div>
+
+      <form class="form form-card reveal in" action="/api/contact" method="POST">
+        <input type="hidden" name="formType" value="signs">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="field--row">
+          <div class="field">
+            <label for="sign-name">Name</label>
+            <input id="sign-name" name="name" type="text" autocomplete="name" required>
+          </div>
+
+          <div class="field">
+            <label for="sign-phone">Phone <span class="hint">(for delivery coordination)</span></label>
+            <input id="sign-phone" name="phone" type="tel" autocomplete="tel" required>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="sign-email">Email</label>
+          <input id="sign-email" name="email" type="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label for="sign-address">Street address <span class="hint">(where the sign should go — Thorold only)</span></label>
+          <input id="sign-address" name="address" type="text" autocomplete="street-address" required>
+        </div>
+
+        <div class="field">
+          <label for="sign-qty">How many signs?</label>
+          <select id="sign-qty" name="interest">
+            <option>1 sign</option>
+            <option>2 signs</option>
+            <option>I have a great high-traffic spot — let's talk</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="sign-notes">Anything we should know? <span class="hint">(optional — gate codes, best delivery times, etc.)</span></label>
+          <textarea id="sign-notes" name="message" rows="3"></textarea>
+        </div>
+
+        <button class="btn btn--primary btn--block" type="submit">Request my sign</button>
+        <p style="font-size:.82rem;color:var(--muted);margin:0">Signs are free. Want to do more? <a href="index.html#volunteer">Join the delivery team</a>.</p>
+      </form>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer__auth">
+        <strong>Authorized by the Campaign of Asad Mahmood for Thorold City Council.</strong><br>
+        Paid for by the Campaign of Asad Mahmood. Contact:
+        <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a>.<br>
+        © <span id="year">2026</span> Campaign of Asad Mahmood.
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=2"></script>
+</body>
+</html>
