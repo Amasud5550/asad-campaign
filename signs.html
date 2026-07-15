@@ -57,8 +57,11 @@
         <p style="font-size:.85rem;color:var(--muted)">Signs are placed in accordance with the City of Thorold's sign by-law, so delivery may begin closer to the election period. We'll only use your address to deliver your sign — see our <a href="privacy.html">privacy statement</a>.</p>
       </div>
 
-      <form class="form form-card reveal in" action="/api/contact" method="POST">
-        <input type="hidden" name="formType" value="signs">
+      <form class="form form-card reveal in" action="https://formsubmit.co/contact@asadmahmood.ca" method="POST">
+        <input type="hidden" name="_subject" value="Lawn Sign Request">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://asadmahmood.ca/signs-success.html">
         <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="field--row">
@@ -85,7 +88,7 @@
 
         <div class="field">
           <label for="sign-qty">How many signs?</label>
-          <select id="sign-qty" name="interest">
+          <select id="sign-qty" name="quantity">
             <option>1 sign</option>
             <option>2 signs</option>
             <option>I have a great high-traffic spot — let's talk</option>
@@ -94,7 +97,7 @@
 
         <div class="field">
           <label for="sign-notes">Anything we should know? <span class="hint">(optional — gate codes, best delivery times, etc.)</span></label>
-          <textarea id="sign-notes" name="message" rows="3"></textarea>
+          <textarea id="sign-notes" name="delivery_notes" rows="3"></textarea>
         </div>
 
         <button class="btn btn--primary btn--block" type="submit">Request my sign</button>
