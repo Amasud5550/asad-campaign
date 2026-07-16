@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<!--<html lang="en">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Donate — Asad Mahmood for Thorold City Council</title>
   <meta name="description" content="Support Asad Mahmood's campaign for Thorold City Council. Contributions follow Ontario's Municipal Elections Act." />
+  <meta name="robots" content="noindex" />
   <link rel="canonical" href="https://www.asadmahmood.ca/donate" />
   <link rel="icon" href="logo small.png" />
   <meta name="theme-color" content="#0B5853" />
@@ -45,150 +46,6 @@
     </div>
   </header>
 
-  <main id="main" class="section">
-    <div class="wrap" style="max-width:760px">
-      <p class="eyebrow">Donate</p>
-      <h1 style="font-size:var(--step-3)">Chip in for a stronger Thorold</h1>
-      <p style="color:var(--muted)">Local campaigns run on small contributions from neighbours. Every dollar goes toward reaching residents across Thorold.</p>
-
-      <div class="notice" style="margin:1.4rem 0 2rem">
-        <strong>Before you give — Ontario's rules under the Municipal Elections Act:</strong>
-        <ul style="margin:.6rem 0 0;padding-left:1.1rem;font-size:.93rem;line-height:1.55">
-          <li>You may give a maximum of <strong>$1,200</strong> to this candidate, and no more than <strong>$5,000</strong> total to all candidates running for Thorold council.</li>
-          <li>Only <strong>individuals who normally live in Ontario</strong> may contribute, using <strong>their own funds</strong>.</li>
-          <li><strong>Corporations and trade unions cannot contribute.</strong></li>
-          <li>Contributions are <strong>not tax-deductible</strong> and do not qualify for a charitable or political tax receipt.</li>
-          <li>The campaign must keep contribution records, including name and address information where required.</li>
-        </ul>
-      </div>
-
-      <form class="form form-card" id="donate-form" style="max-width:none" novalidate>
-        <p class="form__status" id="donate-status" role="alert" aria-live="assertive"></p>
-
-        <fieldset style="border:0;padding:0;margin:0">
-          <legend class="field"><span style="font-weight:700">Choose an amount</span></legend>
-
-          <div class="amounts" role="group" aria-label="Suggested amounts" style="margin-top:.5rem">
-            <button type="button" class="amount" data-amt="25">$25</button>
-            <button type="button" class="amount" data-amt="50">$50</button>
-            <button type="button" class="amount" data-amt="100">$100</button>
-            <button type="button" class="amount" data-amt="250">$250</button>
-          </div>
-
-          <div class="field" style="margin-top:.9rem">
-            <label for="amount">Or enter an amount (CAD)</label>
-            <input id="amount" name="amount" type="number" min="5" max="1200" step="1" inputmode="numeric" placeholder="Up to $1,200" required />
-            <span class="hint">Minimum $5. Maximum $1,200 per contributor to this candidate.</span>
-          </div>
-        </fieldset>
-
-        <div class="field--row">
-          <div class="field">
-            <label for="first">First name</label>
-            <input id="first" name="firstName" type="text" autocomplete="given-name" required />
-          </div>
-
-          <div class="field">
-            <label for="last">Last name</label>
-            <input id="last" name="lastName" type="text" autocomplete="family-name" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="email">Email <span class="hint">(for campaign correspondence and contribution receipt)</span></label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-        </div>
-
-        <div class="field">
-          <label for="address">Street address</label>
-          <input id="address" name="address" type="text" autocomplete="address-line1" required />
-        </div>
-
-        <div class="field--row">
-          <div class="field">
-            <label for="city">City / Town</label>
-            <input id="city" name="city" type="text" autocomplete="address-level2" required />
-          </div>
-
-          <div class="field">
-            <label for="postal">Postal code</label>
-            <input id="postal" name="postal" type="text" autocomplete="postal-code" required />
-          </div>
-        </div>
-
-        <div class="field">
-          <label for="province">Province</label>
-          <select id="province" name="province" required>
-            <option value="ON">Ontario</option>
-            <option value="OTHER">Outside Ontario</option>
-          </select>
-          <span class="hint">Only Ontario residents may contribute to a municipal campaign.</span>
-        </div>
-
-        <fieldset style="border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.8rem;margin:0">
-          <legend style="font-weight:700;padding:0 .4rem">Please confirm</legend>
-
-          <label class="checkbox">
-            <input type="checkbox" id="att-resident" required>
-            I am an individual who normally lives in Ontario.
-          </label>
-
-          <label class="checkbox">
-            <input type="checkbox" id="att-own" required>
-            I am contributing with my own funds, not on behalf of anyone else, a corporation, or a union.
-          </label>
-
-          <label class="checkbox">
-            <input type="checkbox" id="att-limit" required>
-            My total contributions to this candidate will not exceed $1,200, and not more than $5,000 to all Thorold council candidates combined.
-          </label>
-
-          <label class="checkbox">
-            <input type="checkbox" id="att-tax" required>
-            I understand this contribution is not tax-deductible.
-          </label>
-        </fieldset>
-
-        <p class="legal-note" style="font-size:.85rem;color:var(--muted);line-height:1.5;margin:1rem 0;">
-          Only individuals who normally reside in Ontario may contribute.
-          Maximum contribution: <strong>$1,200</strong> per contributor to this candidate.
-          Contributions are not tax deductible.
-          Official campaign receipts will be issued in accordance with the Municipal Elections Act, 1996.
-        </p>
-
-        <button class="btn btn--gold btn--block" id="donate-submit" type="submit">Continue to secure payment</button>
-
-        <p style="font-size:.82rem;color:var(--muted);margin:0">
-          Payments are processed securely by Stripe. The campaign never sees your full card number.
-          See our <a href="privacy.html">privacy statement</a>.
-        </p>
-      </form>
-    </div>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <p class="footer__auth">
-        <strong>Authorized by the Campaign of Asad Mahmood for Thorold City Council.</strong><br>
-        Paid for by the Campaign of Asad Mahmood. Contact:
-        <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a>.<br>
-        Contributions are not tax-deductible. © <span id="year">2026</span> Campaign of Asad Mahmood.
-      </p>
-    </div>
-  </footer>
-
-  <script src="js/main.js"></script>
-  <script src="js/donate.js"></script>
-</body>
-</html>-->
-
-
- ============================================================
-     UNDER-CONSTRUCTION VERSION — if you need to take donations
-     offline again (e.g. before nomination is filed), replace
-     everything above this comment with the markup below.
-     ============================================================
-
   <main id="main" class="section section--tint centered-page">
     <div class="wrap" style="max-width:720px">
       <span class="page-mark" aria-hidden="true">
@@ -215,8 +72,149 @@
     </div>
   </main>
 
-     (Use the same <head>, header, and footer as the live page —
-      just swap the <main> block and remove the donate.js script tag.
-      Also restore: <meta name="robots" content="noindex" />)
-============================================================
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="footer__auth">
+        <strong>Authorized by the Campaign of Asad Mahmood for Thorold City Council.</strong><br>
+        Paid for by the Campaign of Asad Mahmood. Contact:
+        <a href="mailto:contact@asadmahmood.ca">contact@asadmahmood.ca</a>.<br>
+        Contributions are not tax-deductible. © <span id="year">2026</span> Campaign of Asad Mahmood.
+      </p>
+    </div>
+  </footer>
 
+  <script src="js/main.js"></script>
+
+  <!--
+    ============================================================
+    LIVE DONATION FORM — to turn donations back on (e.g. once
+    compliance/payment setup is finalized), replace the <main>
+    block above with the markup below, add back <script src="js/donate.js"></script>,
+    and remove the noindex meta tag.
+    ============================================================
+
+    <main id="main" class="section">
+      <div class="wrap" style="max-width:760px">
+        <p class="eyebrow">Donate</p>
+        <h1 style="font-size:var(--step-3)">Chip in for a stronger Thorold</h1>
+        <p style="color:var(--muted)">Local campaigns run on small contributions from neighbours. Every dollar goes toward reaching residents across Thorold.</p>
+
+        <div class="notice" style="margin:1.4rem 0 2rem">
+          <strong>Before you give — Ontario's rules under the Municipal Elections Act:</strong>
+          <ul style="margin:.6rem 0 0;padding-left:1.1rem;font-size:.93rem;line-height:1.55">
+            <li>You may give a maximum of <strong>$1,200</strong> to this candidate, and no more than <strong>$5,000</strong> total to all candidates running for Thorold council.</li>
+            <li>Only <strong>individuals who normally live in Ontario</strong> may contribute, using <strong>their own funds</strong>.</li>
+            <li><strong>Corporations and trade unions cannot contribute.</strong></li>
+            <li>Contributions are <strong>not tax-deductible</strong> and do not qualify for a charitable or political tax receipt.</li>
+            <li>The campaign must keep contribution records, including name and address information where required.</li>
+          </ul>
+        </div>
+
+        <form class="form form-card" id="donate-form" style="max-width:none" novalidate>
+          <p class="form__status" id="donate-status" role="alert" aria-live="assertive"></p>
+
+          <fieldset style="border:0;padding:0;margin:0">
+            <legend class="field"><span style="font-weight:700">Choose an amount</span></legend>
+
+            <div class="amounts" role="group" aria-label="Suggested amounts" style="margin-top:.5rem">
+              <button type="button" class="amount" data-amt="25">$25</button>
+              <button type="button" class="amount" data-amt="50">$50</button>
+              <button type="button" class="amount" data-amt="100">$100</button>
+              <button type="button" class="amount" data-amt="250">$250</button>
+            </div>
+
+            <div class="field" style="margin-top:.9rem">
+              <label for="amount">Or enter an amount (CAD)</label>
+              <input id="amount" name="amount" type="number" min="5" max="1200" step="1" inputmode="numeric" placeholder="Up to $1,200" required />
+              <span class="hint">Minimum $5. Maximum $1,200 per contributor to this candidate.</span>
+            </div>
+          </fieldset>
+
+          <div class="field--row">
+            <div class="field">
+              <label for="first">First name</label>
+              <input id="first" name="firstName" type="text" autocomplete="given-name" required />
+            </div>
+
+            <div class="field">
+              <label for="last">Last name</label>
+              <input id="last" name="lastName" type="text" autocomplete="family-name" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="email">Email <span class="hint">(for campaign correspondence and contribution receipt)</span></label>
+            <input id="email" name="email" type="email" autocomplete="email" required />
+          </div>
+
+          <div class="field">
+            <label for="address">Street address</label>
+            <input id="address" name="address" type="text" autocomplete="address-line1" required />
+          </div>
+
+          <div class="field--row">
+            <div class="field">
+              <label for="city">City / Town</label>
+              <input id="city" name="city" type="text" autocomplete="address-level2" required />
+            </div>
+
+            <div class="field">
+              <label for="postal">Postal code</label>
+              <input id="postal" name="postal" type="text" autocomplete="postal-code" required />
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="province">Province</label>
+            <select id="province" name="province" required>
+              <option value="ON">Ontario</option>
+              <option value="OTHER">Outside Ontario</option>
+            </select>
+            <span class="hint">Only Ontario residents may contribute to a municipal campaign.</span>
+          </div>
+
+          <fieldset style="border:1px solid var(--line);border-radius:10px;padding:1rem 1.1rem;display:grid;gap:.8rem;margin:0">
+            <legend style="font-weight:700;padding:0 .4rem">Please confirm</legend>
+
+            <label class="checkbox">
+              <input type="checkbox" id="att-resident" required>
+              I am an individual who normally lives in Ontario.
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="att-own" required>
+              I am contributing with my own funds, not on behalf of anyone else, a corporation, or a union.
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="att-limit" required>
+              My total contributions to this candidate will not exceed $1,200, and not more than $5,000 to all Thorold council candidates combined.
+            </label>
+
+            <label class="checkbox">
+              <input type="checkbox" id="att-tax" required>
+              I understand this contribution is not tax-deductible.
+            </label>
+          </fieldset>
+
+          <p class="legal-note" style="font-size:.85rem;color:var(--muted);line-height:1.5;margin:1rem 0;">
+            Only individuals who normally reside in Ontario may contribute.
+            Maximum contribution: <strong>$1,200</strong> per contributor to this candidate.
+            Contributions are not tax deductible.
+            Official campaign receipts will be issued in accordance with the Municipal Elections Act, 1996.
+          </p>
+
+          <button class="btn btn--gold btn--block" id="donate-submit" type="submit">Continue to secure payment</button>
+
+          <p style="font-size:.82rem;color:var(--muted);margin:0">
+            Payments are processed securely by Stripe. The campaign never sees your full card number.
+            See our <a href="privacy.html">privacy statement</a>.
+          </p>
+        </form>
+      </div>
+    </main>
+
+    ============================================================
+  -->
+</body>
+</html>
