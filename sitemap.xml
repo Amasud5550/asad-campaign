@@ -7,27 +7,22 @@
   </url>
 
   <url>
-    <loc>https://www.asadmahmood.ca/media.html</loc>
+    <loc>https://www.asadmahmood.ca/media</loc>
     <priority>0.8</priority>
   </url>
 
   <url>
-    <loc>https://www.asadmahmood.ca/election.html</loc>
-    <priority>0.8</priority>
-  </url>
-
-  <url>
-    <loc>https://www.asadmahmood.ca/signs.html</loc>
+    <loc>https://www.asadmahmood.ca/signs</loc>
     <priority>0.7</priority>
   </url>
 
   <url>
-    <loc>https://www.asadmahmood.ca/privacy.html</loc>
+    <loc>https://www.asadmahmood.ca/privacy</loc>
     <priority>0.3</priority>
   </url>
 
   <url>
-    <loc>https://www.asadmahmood.ca/accessibility.html</loc>
+    <loc>https://www.asadmahmood.ca/accessibility</loc>
     <priority>0.3</priority>
   </url>
 
